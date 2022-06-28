@@ -19,8 +19,8 @@ const ModelType3dItem = observer(({ obj, short }) => {
         <td className={'cursor_pointer ' + styles.sidebar_td} onClick={() => history.push(MODEL_ROUTE + "/" + obj.id)}>
           <a href={MODEL_ROUTE + "/" + obj.id}>{obj.id}</a>
         </td>
-        <td className={styles.sidebar_td}>
-          {obj.name}
+        <td className={styles.width1 + ' ' + styles.sidebar_td}>
+          {obj.name?.length > 20 ? obj.name.slice(0, 18) + '...' : obj.name }
         </td>
         <td className={'cursor_pointer ' + styles.sidebar_td} onClick={() => react3d.ADD_MODEL(obj.id, device)}>
           {<Icon.BoxArrowInUpRight />}

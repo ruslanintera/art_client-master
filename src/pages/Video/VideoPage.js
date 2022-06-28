@@ -263,7 +263,7 @@ const Obj = observer(() => {
             />
             {params3Array.map((item, idx) => {
               return (
-                <img src={item} alt={item} key={item + idx + Date.now()}></img>
+                <img src={item} alt={item} key={'pic_' + item + idx + Date.now()}></img>
               )
             })}
 
@@ -275,7 +275,7 @@ const Obj = observer(() => {
                     height="200"
                     controls="controls"
                     // poster="video/duel.jpg"
-                    key={item + idx + Date.now()}
+                    key={'vid_' + item + idx + Date.now()}
                   >
                     <source
                       src={item}
@@ -287,7 +287,7 @@ const Obj = observer(() => {
                     >
                     {item}
                   </div> */}
-                  <a href={item}>{item}</a>
+                  <a key={'vida_' + item + '_' + idx + '_' + Date.now()} href={item}>{item}</a>
 
                 </>
 
