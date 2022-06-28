@@ -1,0 +1,10 @@
+.imgList {
+  max-width: 50px;
+
+}
+.gridContainer {
+  float: left;
+  min-height: 50px;
+  padding: 2px;
+  border: 0px solid #00f;
+}

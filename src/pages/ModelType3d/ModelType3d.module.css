@@ -1,0 +1,15 @@
+img {
+  width: 100px;
+}
+.imgList {
+  width: 50px;
+}
+
+.sidebar_td {
+  border: 0px solid #aaa;
+  padding: 5px;
+}
+.sidebar_th {
+  border: 0px solid #aaa;
+  padding: 5px;
+}
