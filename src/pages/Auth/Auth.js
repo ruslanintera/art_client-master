@@ -13,7 +13,7 @@ const ModelType3d = observer(() => {
   //const isLogin = location.pathname === LOGIN_ROUTE;
   const location = useLocation();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [moralisSession, setMoralisSession] = useState("");
 
   const { store } = useContext(Context);
   const [users, setUsers] = useState([]);
@@ -54,13 +54,13 @@ const ModelType3d = observer(() => {
                 >
                   <h5>
                     {store.isAuth
-                      ? `Пользователь авторизован::: ${store.user.id}. ${store.user.email}`
+                      ? `Authorised as ${store.user.username}. eth address: ${store.user.ethAddress}`
                       : ""}
                   </h5>
 
                   <button onClick={getUsers}>Получить пользователей</button>
                   {users.map((user) => (
-                    <div key={user.email}>{user.email}</div>
+                    <div key={user.ethAddress}>{user.ethAddress}</div>
                   ))}
 
                   <button onClick={() => { store.logout(); users.length = 0;}}>LOGOUT</button>
@@ -73,21 +73,14 @@ const ModelType3d = observer(() => {
                   style={{ height: window.innerHeight - 54, zIndex: 55 }}
                 >
                   <input
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    type="text"
-                    placeholder="Email"
+                    onChange={(e) => setMoralisSession(e.target.value)}
+                    value={moralisSession}
+                    placeholder="moralis session"
                   />
-                  <input
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    type="password"
-                    placeholder="Пароль"
-                  />
-                  <button onClick={() => store.login(email, password)}>
+                  <button onClick={() => store.login(moralisSession)}>
                     Логин
                   </button>
-                  <button onClick={() => store.registration(email, password)}>
+                  <button onClick={() => store.registration(moralisSession)}>
                     Регистрация
                   </button>
 

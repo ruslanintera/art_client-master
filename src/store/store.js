@@ -24,9 +24,9 @@ export default class Store {
     this.isLoading = bool
   }
 
-  async login(email, password) {
+  async login(moralis_session) {
     try {
-      const response = await AuthService.login(email, password)
+      const response = await AuthService.login(moralis_session);
       localStorage.setItem("token", response.data.accessToken)
       this.setAuth(true)
       this.setUser(response.data.user)
@@ -35,9 +35,9 @@ export default class Store {
     }
   }
 
-  async registration(email, password) {
+  async registration(moralis_session) {
     try {
-      const response = await AuthService.registration(email, password)
+      const response = await AuthService.registration(moralis_session)
       localStorage.setItem("token", response.data.accessToken)
       this.setAuth(true)
       this.setUser(response.data.user)
