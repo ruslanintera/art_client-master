@@ -6,17 +6,25 @@ import { Tabs, Tab } from "react-bootstrap";
 import UserService from "../../auth/services/UserService";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 
 const ModelType3d = observer(() => {
   //const { user } = useContext(Context);
   //const isLogin = location.pathname === LOGIN_ROUTE;
   const location = useLocation();
-  const [email, setEmail] = useState("");
-  const [moralisSession, setMoralisSession] = useState("");
+  const { sessionToken } = useParams();
+  const [moralisSession, setMoralisSession] = useState(sessionToken);
 
+  const { push } = useHistory();
   const { store } = useContext(Context);
   const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (!store.isAuth) {
+      store.login(sessionToken);
+      push(`/`);
+    }
+  }, [sessionToken]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

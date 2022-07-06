@@ -46,6 +46,7 @@ export const publicRoutes = [
   { path: ROUTE_3D + "/:id", Component: Page3d },
 
   { path: LOGIN_ROUTE, Component: Auth },
+  { path: LOGIN_ROUTE + "/:sessionToken", Component: Auth },
   { path: REGISTRATION_ROUTE, Component: Auth },
   
   // { path: PHOTO_ROUTE, Component: PhotoVideo },
