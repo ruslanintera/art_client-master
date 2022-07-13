@@ -11,7 +11,7 @@ import { i3d_base } from "./dev2020/f4_base"
 class React3d {
   ADD_IMAGE(obj, item, device) {
     //console.log('ADD_IMAGE  item = ', item)
-    const itemWithURL = process.env.REACT_APP_API_URL + item
+    const itemWithURL = item
     const textureLoader = new THREE.TextureLoader()
     const diffuseMap = textureLoader.load(itemWithURL)
     diffuseMap.encoding = THREE.sRGBEncoding

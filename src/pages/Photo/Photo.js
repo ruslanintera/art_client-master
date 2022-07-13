@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
+import Moralis from '../../const/moralis'
 import { Container, Row, Col, Tabs, Tab, Button } from "react-bootstrap"
 import { useHistory } from "react-router-dom"
 import { observer } from "mobx-react-lite"
@@ -11,6 +12,7 @@ import { PHOTO_ROUTE } from "../../utils/consts"
 const Photo = observer(() => {
   const { device } = useContext(Context)
   const history = useHistory()
+  const [artworks, setArtworks] = useState([]);
   const [oneValue, setOneValue] = useState({ name: "" })
 
   useEffect(() => {
@@ -28,6 +30,24 @@ const Photo = observer(() => {
     history.push(PHOTO_ROUTE + "/" + data.id)
   }
 
+  const loadArtworks = async () => {
+    // Moralis.Cloud.run('getUserArtworks');
+    if (user === null) { 
+      await Moralis.enableWeb3();
+      await Moralis.authenticate({signingMessage:"Artrooms editor login"});
+    } else {
+      const _artworks = await Moralis.Cloud.run('getUserArtworks', { ethAddress: user.get("ethAddress") });
+      setArtworks(_artworks);
+      console.log(`Set artworks`, _artworks);
+    }
+  }
+
+  const user = Moralis.User.current();
+
+  useEffect(() => {
+    loadArtworks()
+  }, [user])
+
   return (
     <div className="work_page navbar1 ">
       <Container>
@@ -38,13 +58,13 @@ const Photo = observer(() => {
         >
           <Tab className="p-1" eventKey="tab_page_1" title="Photo">
             <h4>
-              <strong>3D Модели</strong>
+              <strong>NFTS</strong>
             </h4>
 
             <Row className="mt-2">
               <Col md={12}>
                 <PagesPhoto />
-                <PhotoList />
+                <PhotoList data={artworks}/>
               </Col>
             </Row>
           </Tab>

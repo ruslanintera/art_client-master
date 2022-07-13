@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useCallback, useMemo,} from "re
 //import { Link } from "react-router-dom"
 //import JoyStick from "../joyStick/joyStick"
 //import RangeSlider from "../rangeSlider/rangeSlider"
+import Moralis from '../../const/moralis'
 
 import { observer } from "mobx-react-lite"
 import { Context } from "../../index"
@@ -25,6 +26,25 @@ const SideBar = observer((props) => {
   const history = useHistory()
   const [parentVal, setParentVal] = useState(10)
   const [setOneValue, setSetOneValue] = useState([])
+  const [artworks, setArtworks] = useState([]);
+
+  const user = Moralis.User.current();
+
+  const loadArtworks = async () => {
+    // Moralis.Cloud.run('getUserArtworks');
+    if (user === null) { 
+      await Moralis.enableWeb3();
+      await Moralis.authenticate({signingMessage:"Artrooms editor login"});
+    } else {
+      const _artworks = await Moralis.Cloud.run('getUserArtworks', { ethAddress: user.get("ethAddress") });
+      setArtworks(_artworks);
+      console.log(_artworks);
+    }
+  }
+
+  useEffect(() => {
+    loadArtworks()
+  }, [user])
 
   // const sliderValueChanged = useCallback((val) => {
   //   //console.log("NEW VALUE", val)
@@ -129,7 +149,7 @@ const SideBar = observer((props) => {
                 <Row className="mt-2">
                   <Col md={12}>
                     <PagesPhoto />
-                    <PhotoList short={true} />
+                    <PhotoList short={true} data={artworks}/>
                   </Col>
                 </Row>
               </Tab>

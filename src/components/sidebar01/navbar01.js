@@ -1,7 +1,7 @@
 import React, { Component, useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import Nav from "react-bootstrap/Nav"
-import Moralis from '../../const/moralis'
+
 // import Navbar from "react-bootstrap/Navbar"
 // import {NavLink} from "react-router-dom"
 
@@ -23,29 +23,12 @@ const SideBar = observer((props) => {
   const { store } = useContext(Context)
   const history = useHistory()
 
-  const [artworks, setArtworks] = useState();
 
   const handleToggle = () => {
     device.setIsActive(!device.isActive)
   }
 
-  const user = Moralis.User.current();
-
-  const loadArtworks = async () => {
-    // Moralis.Cloud.run('getUserArtworks');
-    if (user === null) { 
-      await Moralis.enableWeb3();
-      await Moralis.authenticate({signingMessage:"Artrooms editor login"});
-    } else {
-      const _artworks = await Moralis.Cloud.run('getUserArtworks', { ethAddress: user.get("ethAddress") });
-      setArtworks(_artworks);
-      console.log(_artworks);
-    }
-  }
-
-  useEffect(() => {
-    loadArtworks()
-  }, [user])
+  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">

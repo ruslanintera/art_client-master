@@ -14,34 +14,28 @@ const PhotoItem = observer(({ obj, short }) => {
   const [items, setItems] = useState([])
   const [itemsMP4, setItemsMP4] = useState([])
 
-  useEffect(() => {
-    if (obj.params3Array) {
-      setItems(obj.params3Array.map((item) => item))
-    }
-    if (obj.params2Array) {
-      setItemsMP4(obj.params2Array.map((item) => item))
-    }
-  }, [])
+  console.log(obj)
+
+  // useEffect(() => {
+  //   if (obj.params3Array) {
+  //     setItems(obj.params3Array.map((item) => item))
+  //   }
+  //   if (obj.params2Array) {
+  //     setItemsMP4(obj.params2Array.map((item) => item))
+  //   }
+  // }, [])
 
   if (short) {
     return (
-      <>
-        {items.map((item, idx) => {
-            return (
-            <div key={obj.id + '_' + idx + '_' + Date.now()} className={styles.gridContainer}>
-              <img
-                onClick={() => react3d.ADD_IMAGE(obj, item, device)}
-                className={styles.imgList}
-                src={process.env.REACT_APP_API_URL + item}
-                alt={item}
-                key={item}
-              ></img>
-            </div>
-            )
-          })}
-        
-      </>
-
+      <div key={obj?.token_id} className={styles.gridContainer}>
+        <img
+          onClick={() => react3d.ADD_IMAGE(obj, obj?.image, device)}
+          className={styles.imgList}
+          src={obj?.image}
+          alt={obj?.name}
+          key={obj?.token_id}
+        ></img>
+      </div>
     )
   }
 
@@ -52,18 +46,7 @@ const PhotoItem = observer(({ obj, short }) => {
       </td>
       <td className="community_name">{obj.name}</td>
       <td>
-        {items.map((item) => {
-          return (<img className={styles.imgList} src={process.env.REACT_APP_API_URL + item} alt={item} key={item}></img>)
-        })}
-      </td>
-      <td>
-        {itemsMP4.map((item, idx) => {
-          return (
-            <video width="100" height="100" controls="controls" poster="video/duel.jpg" key={item + idx + Date.now()}>
-              <source src={process.env.REACT_APP_API_URL + item} type='video/mp4 codecs="avc1.42E01E, mp4a.40.2"'/>
-            </video>
-          )
-        })}
+        <img className={styles.imgList} src={obj?.image} alt={obj?.name} key={obj?.token_id}></img>
       </td>
     </tr>
   )
