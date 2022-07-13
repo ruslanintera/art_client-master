@@ -55,11 +55,11 @@ const Set = observer(() => {
             </h4>
 
             <Row className="mt-2">
-              <Col md={3}></Col>
               <Col md={9}>
                 <PagesDC />
                 <DCList />
               </Col>
+              <Col md={3}></Col>
             </Row>
           </Tab>
           <Tab className="p-1" eventKey="tab_page_2" title="Tab2">
