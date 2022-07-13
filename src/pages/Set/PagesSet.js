@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {Pagination} from "react-bootstrap";
+import RoomDetailPage from '../RoomDetailPage';
 
 const PagesDC = observer(() => {
     const {device} = useContext(Context)
@@ -14,6 +15,7 @@ const PagesDC = observer(() => {
     
     return (
         <Pagination className="mt-3">
+            <RoomDetailPage />
             {pages.map(page =>
                 <Pagination.Item
                     key={page}
