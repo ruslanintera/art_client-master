@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./AppRouter";
+import { MoralisProvider } from "react-moralis";
 
 import NavBar from "./components/NavBar";
 //<NavBar />
@@ -27,9 +28,14 @@ const App = observer(() => {
   // }
 
   return (
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <MoralisProvider 
+      serverUrl={process.env.REACT_APP_SERVER_URL} 
+      appId={process.env.REACT_APP_APPID}
+    >
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>  
+    </MoralisProvider>
   );
 });
 //            <NavBar />

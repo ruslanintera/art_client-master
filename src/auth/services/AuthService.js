@@ -4,12 +4,12 @@ import { $host } from "../../http";
 //import {AuthResponse} from "../models/response/AuthResponse";
 
 export default class AuthService {
-  static async login(email, password) {
-    return $host.post("/api/auth/login", { email, password });
+  static async login(moralis_session) {
+    return $host.post("/api/auth/login", { moralis_session } );
   }
 
-  static async registration(email, password) {
-    return $host.post("/api/auth/registration", { email, password });
+  static async registration(moralis_session) {
+    return $host.post("/api/auth/registration", { moralis_session });
   }
 
   static async logout() {
